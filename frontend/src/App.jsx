@@ -20,13 +20,6 @@ import LandingPage from './pages/LandingPage'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import Dashboard from './pages/Dashboard'
-import WorkoutsPage from './pages/WorkoutsPage'
-import ExercisesPage from './pages/ExercisesPage'
-import ProgressPage from './pages/ProgressPage'
-import ProfilePage from './pages/ProfilePage'
-import SocialPage from './pages/SocialPage'
-import WorkoutBuilder from './pages/WorkoutBuilder'
-import WorkoutSession from './pages/WorkoutSession'
 import NotFound from './pages/NotFound'
 
 // Route Protection
@@ -84,47 +77,7 @@ function AppContent() {
                 </ProtectedRoute>
               } />
               
-              <Route path="/workouts" element={
-                <ProtectedRoute>
-                  <WorkoutsPage />
-                </ProtectedRoute>
-              } />
-              
-              <Route path="/workouts/builder" element={
-                <ProtectedRoute>
-                  <WorkoutBuilder />
-                </ProtectedRoute>
-              } />
-              
-              <Route path="/workouts/session/:id" element={
-                <ProtectedRoute>
-                  <WorkoutSession />
-                </ProtectedRoute>
-              } />
-              
-              <Route path="/exercises" element={
-                <ProtectedRoute>
-                  <ExercisesPage />
-                </ProtectedRoute>
-              } />
-              
-              <Route path="/progress" element={
-                <ProtectedRoute>
-                  <ProgressPage />
-                </ProtectedRoute>
-              } />
-              
-              <Route path="/profile" element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              } />
-              
-              <Route path="/social" element={
-                <ProtectedRoute>
-                  <SocialPage />
-                </ProtectedRoute>
-              } />
+              {/* Additional protected routes can be added as pages are implemented */}
               
               {/* 404 Page */}
               <Route path="*" element={<NotFound />} />

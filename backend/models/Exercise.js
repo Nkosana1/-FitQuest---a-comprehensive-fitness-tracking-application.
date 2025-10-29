@@ -140,7 +140,7 @@ ExerciseSchema.virtual('primaryMuscleGroup').get(function() {
 ExerciseSchema.methods.incrementUsage = async function() {
   this.timesUsed += 1;
   return await this.save();
-});
+};
 
 // Method to add rating
 ExerciseSchema.methods.addRating = async function(rating) {

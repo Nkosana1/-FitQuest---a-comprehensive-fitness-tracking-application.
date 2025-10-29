@@ -14,7 +14,7 @@ import {
   Plus
 } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
-import { useWorkouts } from '../context/WorkoutContext'
+import { useWorkout } from '../context/WorkoutContext'
 import { useProgress } from '../context/ProgressContext'
 import { useSocial } from '../context/SocialContext'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
@@ -22,7 +22,7 @@ import Button from '../components/ui/Button'
 
 const Dashboard = () => {
   const { user } = useAuth()
-  const { workouts, loading: workoutsLoading } = useWorkouts()
+  const { workouts, isLoading: workoutsLoading } = useWorkout()
   const { progressData, personalRecords } = useProgress()
   const { followers, following } = useSocial()
   const [recentActivity, setRecentActivity] = useState([])
