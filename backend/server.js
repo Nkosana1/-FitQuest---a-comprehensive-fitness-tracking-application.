@@ -6,6 +6,12 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 require('dotenv').config();
+let Sentry;
+try {
+  Sentry = require('@sentry/node');
+} catch (_) {
+  Sentry = null;
+}
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -25,6 +31,13 @@ const errorHandler = require('./middleware/errorHandler');
 const auth = require('./middleware/auth');
 
 const app = express();
+app.set('trust proxy', 1);
+
+// Optional Sentry init
+if (Sentry && process.env.SENTRY_DSN) {
+  Sentry.init({ dsn: process.env.SENTRY_DSN, environment: process.env.NODE_ENV });
+  app.use(Sentry.Handlers.requestHandler());
+}
 
 // Security middleware
 app.use(helmet());
@@ -94,12 +107,20 @@ app.use('*', (req, res) => {
 // Global error handler
 app.use(errorHandler);
 
+if (Sentry && process.env.SENTRY_DSN) {
+  app.use(Sentry.Handlers.errorHandler());
+}
+
 // Database connection
+mongoose.set('strictQuery', true);
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      maxPoolSize: Number(process.env.MONGODB_POOL_SIZE || 10),
+      serverSelectionTimeoutMS: Number(process.env.MONGODB_SERVER_SELECTION_TIMEOUT_MS || 5000),
+      socketTimeoutMS: Number(process.env.MONGODB_SOCKET_TIMEOUT_MS || 45000)
     });
     
     console.log(`MongoDB Connected: ${conn.connection.host}`);
@@ -128,6 +149,16 @@ process.on('SIGTERM', () => {
   console.log('SIGTERM received. Shutting down gracefully...');
   mongoose.connection.close();
   process.exit(0);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled Rejection:', reason);
+  process.exit(1);
 });
 
 module.exports = app;

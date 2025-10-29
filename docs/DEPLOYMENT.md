@@ -12,6 +12,58 @@ This guide provides step-by-step instructions for deploying FitQuest to various 
 
 ---
 
+## One-click Overview (Recommended)
+
+- Frontend → Vercel (directory: `frontend/`, build: `npm run build`, output: `dist`)
+- Backend → Render (blueprint: `render.yaml`, health check: `/health`)
+
+Environment variables are managed per platform. See backend `env.example` and frontend `env.example`.
+
+---
+
+## Vercel (Frontend)
+
+1) Create a new Vercel project
+- Framework preset: Vite
+- Root directory: `frontend`
+- Build command: `npm run build`
+- Output directory: `dist`
+
+2) Set environment variables
+- `VITE_API_URL` → your Render backend URL
+
+3) SPA routing and PWA
+- `frontend/vercel.json` includes SPA rewrites to `index.html`
+- PWA is enabled via `vite-plugin-pwa`
+
+---
+
+## Render (Backend)
+
+1) Use Blueprint
+- Connect GitHub repo and select `render.yaml` at repo root
+
+2) Verify service config
+- Root dir: `backend`
+- Build command: `npm ci`
+- Start command: `npm run start`
+- Health check path: `/health`
+
+3) Set environment variables
+- `NODE_ENV=production`
+- `MONGODB_URI` (Atlas connection string)
+- `JWT_SECRET`, `JWT_EXPIRES_IN`
+- `FRONTEND_URL` (your Vercel app URL)
+- Optional: Cloudinary and Email creds
+- Optional: `MONGODB_POOL_SIZE` (default 10)
+
+4) Database indexes and seed
+```bash
+render ssh <service> --command "cd backend && npm run migrate:indexes && npm run seed:exercises"
+```
+
+---
+
 ## 🛠️ Environment Setup
 
 ### 1. Clone the Repository
