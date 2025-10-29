@@ -1,5 +1,15 @@
 # FitQuest - Fitness Tracking Application
 
+![React](https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646cff?logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3-38b2ac?logo=tailwindcss&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-18-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47a248?logo=mongodb&logoColor=white)
+![Render](https://img.shields.io/badge/Render-Backend-000000)
+![Vercel](https://img.shields.io/badge/Vercel-Frontend-000000?logo=vercel&logoColor=white)
+![CI](https://github.com/Nkosana1/-FitQuest---a-comprehensive-fitness-tracking-application./actions/workflows/ci.yml/badge.svg)
+
 A comprehensive MERN stack application for tracking workouts, progress, and connecting with fitness enthusiasts.
 
 ## 🚀 Features
@@ -93,14 +103,14 @@ A comprehensive MERN stack application for tracking workouts, progress, and conn
    ```
 
 ### Environment Variables
-
+   
 **Backend (.env)**
-```env
+   ```env
 MONGODB_URI=your_mongodb_atlas_uri
 JWT_SECRET=your_jwt_secret
 JWT_EXPIRE=30d
-NODE_ENV=development
-PORT=5000
+   NODE_ENV=development
+   PORT=5000
 CLIENT_URL=http://localhost:3000
 ```
 
@@ -109,6 +119,15 @@ CLIENT_URL=http://localhost:3000
 REACT_APP_API_URL=http://localhost:5000/api
 REACT_APP_ENV=development
 ```
+
+## 🔗 Live Demo
+- Frontend: https://fitquest.vercel.app
+- Backend API: https://fitquest-api.onrender.com
+- Repo: https://github.com/yourusername/fitquest
+
+Demo credentials (read-only)
+- Email: demo@example.com
+- Password: DemoPassword123!
 
 ## 🚀 Deployment
 
