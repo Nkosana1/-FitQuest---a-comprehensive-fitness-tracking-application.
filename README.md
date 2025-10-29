@@ -1,80 +1,185 @@
-# FitQuest
+# FitQuest - Fitness Tracking Application
 
-A production-ready MERN fitness tracking platform with social features, analytics, and PWA support.
+A comprehensive MERN stack application for tracking workouts, progress, and connecting with fitness enthusiasts.
 
-## Overview
+## 🚀 Features
 
-FitQuest helps users track workouts, monitor progress, and connect with friends. This repo includes a hardened Express API and an optimized React (Vite) SPA ready for deployment to Render (backend) and Vercel (frontend).
+### Core Functionality
+- **Workout Management**: Create, track, and log workouts
+- **Exercise Library**: Browse exercises with demo videos
+- **Progress Tracking**: Weight, measurements, and personal records
+- **Social Features**: Follow users, share workouts, view activity feeds
+- **Analytics**: Charts and insights for progress monitoring
 
-## Features
+### Technical Features
+- JWT Authentication
+- Responsive Design
+- Real-time Updates
+- File Uploads
+- RESTful API
+- Mobile-First Design
 
-- Authentication, profile, and social graph
-- Workout builder and exercise library
-- Progress analytics and PR tracking
-- PWA (offline + installable)
-- SEO and social meta tags
+## 🛠 Tech Stack
 
-## Tech Stack
+### Frontend
+- React 18
+- React Router DOM
+- Context API
+- Tailwind CSS
+- Chart.js
+- Axios
 
-- Backend: Node.js, Express, MongoDB, Mongoose, JWT, Helmet, Rate limiting, Compression, Morgan
-- Frontend: React 18, Vite, React Router, Tailwind, Chart.js, vite-plugin-pwa
+### Backend
+- Node.js
+- Express.js
+- MongoDB with Mongoose
+- JWT
+- bcryptjs
+- Multer
 
-## Monorepo Structure
+### Deployment
+- Vercel (Frontend)
+- Render (Backend)
+- MongoDB Atlas (Database)
+
+## 📋 Prerequisites
+
+- Node.js (v18 or higher)
+- MongoDB Atlas account
+- Git
+
+## 🏃‍♂️ Quick Start
+
+### Local Development
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/fitquest.git
+   cd fitquest
+   ```
+
+2. **Backend Setup**
+   ```bash
+   cd backend
+   npm install
+   cp .env.example .env
+   # Edit .env with your MongoDB Atlas URI and JWT secret
+   npm run dev
+   ```
+
+3. **Frontend Setup**
+   ```bash
+   cd frontend
+   npm install
+   cp .env.example .env
+   # Edit .env with your backend API URL
+   npm start
+   ```
+
+### Environment Variables
+
+**Backend (.env)**
+```env
+MONGODB_URI=your_mongodb_atlas_uri
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRE=30d
+NODE_ENV=development
+PORT=5000
+CLIENT_URL=http://localhost:3000
+```
+
+**Frontend (.env)**
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_ENV=development
+```
+
+## 🚀 Deployment
+
+### Backend to Render
+1. Connect GitHub repository to Render
+2. Create new Web Service
+3. Set build command: `npm install`
+4. Set start command: `npm start`
+5. Add environment variables
+
+### Frontend to Vercel
+1. Connect GitHub repository to Vercel
+2. Set root directory to `frontend`
+3. Build command: `npm run build`
+4. Output directory: `build`
+
+### Database to MongoDB Atlas
+1. Create new cluster
+2. Create database user
+3. Get connection string
+4. Add to environment variables
+
+## 📚 API Documentation
+
+### Authentication Endpoints
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/me` - Get current user
+
+### Workout Endpoints
+- `GET /api/workouts` - Get user's workouts
+- `POST /api/workouts` - Create new workout
+- `PUT /api/workouts/:id` - Update workout
+- `DELETE /api/workouts/:id` - Delete workout
+
+### Exercise Endpoints
+- `GET /api/exercises` - Get exercise library
+- `POST /api/exercises` - Create new exercise (admin)
+- `GET /api/exercises/search` - Search exercises
+
+### Progress Endpoints
+- `POST /api/progress` - Add progress entry
+- `GET /api/progress` - Get user progress
+- `GET /api/progress/charts` - Get chart data
+
+## 🏗 Project Structure
 
 ```
-backend/   # Express API
-frontend/  # React SPA (Vite)
-docs/      # Additional documentation
-render.yaml
+fitquest/
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── utils/
+│   └── config/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── services/
+│   │   ├── hooks/
+│   │   └── utils/
+├── docs/
+└── README.md
 ```
 
-## Local Development
+## 🤝 Contributing
 
-1) Install dependencies
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-```bash
-cd backend && npm install
-cd ../frontend && npm install
-```
+## 📝 License
 
-2) Configure environment
+This project is licensed under the MIT License.
 
-- Copy `backend/env.example` to `backend/.env` and set values
-- Copy `frontend/env.example` to `frontend/.env` and set values
+## 👥 Authors
 
-3) Run dev servers
+Your Name - [GitHub](https://github.com/yourusername)
 
-```bash
-# Terminal 1
-cd backend && npm run dev
+## 🙏 Acknowledgments
 
-# Terminal 2
-cd frontend && npm run dev
-```
-
-## Production Builds
-
-- Backend: `cd backend && npm run start:prod` (Render uses `npm run start`)
-- Frontend: `cd frontend && npm run build` (Vercel uses `npm run build`)
-
-## Environment Variables
-
-- Backend: see `backend/env.example`
-- Frontend: see `frontend/env.example`
-
-## Deployment
-
-- Frontend on Vercel: see `frontend/vercel.json` and `docs/DEPLOYMENT.md`
-- Backend on Render: see `render.yaml` and `docs/DEPLOYMENT.md`
-
-## API Documentation
-
-See `API_DOCS.md` and `docs/API_ENDPOINTS.md` for endpoints and examples.
-
-## Contributing
-
-See `CONTRIBUTING.md`. Open issues and PRs are welcome. Please follow the PR template and CI checks.
-
-## License
-
-MIT
+- Icons by Lucide React
+- Charts by Chart.js
+- UI components with Tailwind CSS
