@@ -2,8 +2,6 @@
 
 A comprehensive fitness tracking application with social features and advanced analytics.
 
-![FitQuest Logo](./docs/assets/logo.png)
-
 ## 🌟 Overview
 
 FitQuest is a modern, full-stack fitness tracking application that helps users monitor their workouts, track progress, and connect with a community of fitness enthusiasts. Built with the MERN stack, it provides an intuitive interface for managing fitness journeys with powerful analytics and social features.
