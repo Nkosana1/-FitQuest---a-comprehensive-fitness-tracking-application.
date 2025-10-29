@@ -1,31 +1,48 @@
 const express = require('express');
+const {
+  getWorkouts,
+  getWorkout,
+  createWorkout,
+  updateWorkout,
+  deleteWorkout,
+  duplicateWorkout,
+  toggleLike,
+  rateWorkout,
+  getPopularWorkouts,
+  getWorkoutAnalytics
+} = require('../controllers/workouts');
 const { protect, optionalAuth } = require('../middleware/auth');
+const { 
+  validateWorkoutCreation, 
+  validateObjectId, 
+  validatePagination, 
+  validateRating 
+} = require('../middleware/validation');
 
 const router = express.Router();
 
-// Placeholder routes - to be implemented
-router.get('/', protect, (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Workouts endpoint - coming soon',
-    data: []
-  });
-});
+// Public routes
+router.get('/popular', validatePagination, optionalAuth, getPopularWorkouts);
+router.get('/:id', validateObjectId('id'), optionalAuth, getWorkout);
 
-router.get('/:id', optionalAuth, (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Workout detail endpoint - coming soon',
-    data: {}
-  });
-});
+// Protected routes
+router.use(protect);
 
-router.post('/', protect, (req, res) => {
-  res.status(201).json({
-    success: true,
-    message: 'Create workout endpoint - coming soon',
-    data: {}
-  });
-});
+// Main workout routes
+router.route('/')
+  .get(validatePagination, getWorkouts)
+  .post(validateWorkoutCreation, createWorkout);
+
+router.route('/:id')
+  .put(validateObjectId('id'), validateWorkoutCreation, updateWorkout)
+  .delete(validateObjectId('id'), deleteWorkout);
+
+// Workout actions
+router.post('/:id/duplicate', validateObjectId('id'), duplicateWorkout);
+router.post('/:id/like', validateObjectId('id'), toggleLike);
+router.post('/:id/rate', validateObjectId('id'), validateRating, rateWorkout);
+
+// Workout analytics (creator only)
+router.get('/:id/analytics', validateObjectId('id'), getWorkoutAnalytics);
 
 module.exports = router;

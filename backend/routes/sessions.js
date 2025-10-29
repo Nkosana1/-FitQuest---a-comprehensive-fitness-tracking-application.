@@ -1,34 +1,52 @@
 const express = require('express');
+const {
+  getWorkoutLogs,
+  getWorkoutLog,
+  logWorkout,
+  updateWorkoutLog,
+  deleteWorkoutLog,
+  getWorkoutHistory,
+  getExerciseHistory,
+  getWorkoutStats
+} = require('../controllers/logs');
 const { protect } = require('../middleware/auth');
+const { 
+  validateWorkoutLog, 
+  validateObjectId, 
+  validatePagination, 
+  validateDateRange 
+} = require('../middleware/validation');
 
 const router = express.Router();
 
 // All routes require authentication
 router.use(protect);
 
-// Placeholder routes - to be implemented
-router.get('/', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Workout sessions endpoint - coming soon',
-    data: []
-  });
-});
+// Workout statistics
+router.get('/stats', validateDateRange, getWorkoutStats);
 
-router.get('/:id', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Session detail endpoint - coming soon',
-    data: {}
-  });
-});
+// Main workout log routes
+router.route('/')
+  .get(validatePagination, validateDateRange, getWorkoutLogs)
+  .post(validateWorkoutLog, logWorkout);
 
-router.post('/', (req, res) => {
-  res.status(201).json({
-    success: true,
-    message: 'Create session endpoint - coming soon',
-    data: {}
-  });
-});
+router.route('/:id')
+  .get(validateObjectId('id'), getWorkoutLog)
+  .put(validateObjectId('id'), validateWorkoutLog, updateWorkoutLog)
+  .delete(validateObjectId('id'), deleteWorkoutLog);
+
+// Specific workout and exercise history
+router.get('/workout/:workoutId', 
+  validateObjectId('workoutId'), 
+  validatePagination, 
+  getWorkoutHistory
+);
+
+router.get('/exercise/:exerciseId', 
+  validateObjectId('exerciseId'), 
+  validatePagination, 
+  validateDateRange,
+  getExerciseHistory
+);
 
 module.exports = router;

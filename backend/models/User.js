@@ -27,20 +27,34 @@ const UserSchema = new mongoose.Schema({
     minlength: [8, 'Password must be at least 8 characters'],
     select: false // Don't include password in queries by default
   },
+  profilePic: {
+    type: String, // Cloudinary URL
+    default: ''
+  },
+  bio: {
+    type: String,
+    maxlength: [500, 'Bio cannot exceed 500 characters'],
+    default: ''
+  },
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   profile: {
     firstName: {
       type: String,
-      required: [true, 'Please add a first name'],
       maxlength: [50, 'First name cannot exceed 50 characters']
     },
     lastName: {
       type: String,
-      required: [true, 'Please add a last name'],
       maxlength: [50, 'Last name cannot exceed 50 characters']
     },
     dateOfBirth: {
-      type: Date,
-      required: [true, 'Please add your date of birth']
+      type: Date
     },
     gender: {
       type: String,
@@ -66,14 +80,6 @@ const UserSchema = new mongoose.Schema({
       type: String,
       enum: ['weight_loss', 'muscle_gain', 'endurance', 'strength', 'flexibility', 'general_fitness']
     }],
-    bio: {
-      type: String,
-      maxlength: [500, 'Bio cannot exceed 500 characters']
-    },
-    profilePicture: {
-      type: String, // Cloudinary URL
-      default: ''
-    },
     location: {
       type: String,
       maxlength: [100, 'Location cannot exceed 100 characters']
