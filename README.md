@@ -99,7 +99,7 @@ A comprehensive MERN stack application for tracking workouts, progress, and conn
    npm install
    cp .env.example .env
    # Edit .env with your backend API URL
-   npm start
+   npm run dev
    ```
 
 ### Environment Variables
@@ -142,7 +142,7 @@ Demo credentials (read-only)
 1. Connect GitHub repository to Vercel
 2. Set root directory to `frontend`
 3. Build command: `npm run build`
-4. Output directory: `build`
+4. Output directory: `dist`
 
 ### Database to MongoDB Atlas
 1. Create new cluster
