@@ -48,4 +48,5 @@ jobs:
         working-directory: frontend
         env:
           CI: false
+          VITE_API_URL: https://fitquest-api.onrender.com
         run: npm run build
